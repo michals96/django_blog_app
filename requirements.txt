@@ -3,3 +3,4 @@ django-extensions
 django-debug-toolbar
 bpython
 Pillow
+django-embed-video
