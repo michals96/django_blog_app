@@ -5,5 +5,5 @@ bpython
 Pillow
 django-embed-video
 gunicorn
-django-bootstrap-validation
+django-bootstrap-pagination
 django-heroku
