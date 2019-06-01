@@ -4,3 +4,6 @@ django-debug-toolbar
 bpython
 Pillow
 django-embed-video
+gunicorn
+django-bootstrap-validation
+django-heroku
