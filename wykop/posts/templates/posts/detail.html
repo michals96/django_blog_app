@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <small>{{ object.created|date }}, {{ object.created|time }} | <a href="{% url 'posts:update' pk=object.pk %}">Edytuj</a> |
+    <a href="{% url 'posts:delete' pk=object.pk %}">Usuń</a> |
+    {% if object.author.banned %}
+        <span class="banned"> autor: {{ object.author }} </span>
+    {% else %}
+        <span> autor: {{ object.author }} </span>
+    {% endif %}
+     {% if user.is_staff %}
+        <form method="POST" action="{% url 'accounts:ban' object.author.pk %}">
+            {% csrf_token %}
+            {% if object.author.banned %}
+                <input type="submit" value="Odbanuj">
+                <input type="hidden" name="set" value="0">
+            {% else %}
+                <input type="submit" value="Zbanuj">
+                <input type="hidden" name="set" value="1">
+            {% endif %}
+            {{object.author.banned}}
+        </form>
+    {% endif %}
+    </small>
+    
+    <p>{{ object.text }}</p>
+    {% if object.image %}
+        <img src="{{ object.image.url }}">
+    {% else %}
+    {% endif %}
+    {% load embed_video_tags %}
+    {% if object.video %}
+        {% video object.video '800x600' %}
+    {% endif %}
+    {% if object.author.banned %}
+        <form method="POST" action="{% url 'posts:comment' object.pk %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" value="Add comment" disabled>
+        </form>
+    {% else %}
+         <form method="POST" action="{% url 'posts:comment' object.pk %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" value="Add comment">
+        </form>
+    {% endif %}
+
+    <h5>Comment section</h5>
+    {% for comment in object.comments.all %} 
+        {% include "posts/comment.html" %}
+    {% endfor %}
+  
+{% endblock %}

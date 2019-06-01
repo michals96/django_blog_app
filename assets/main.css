@@ -1,0 +1,22 @@
+h1 {
+    color: red;
+}
+
+.listphoto{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.listphoto2{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.ifVideo{
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.banned{
+    text-decoration: line-through;
+}
